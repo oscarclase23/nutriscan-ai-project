@@ -5,7 +5,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Camera, Upload, Loader2, ChevronRight, PieChart, Info, AlertCircle, RefreshCcw, Save, Trash2, Plus, Edit2, Check, X } from 'lucide-react';
-import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/clerk-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { analyzeFoodImage, getNutritionData, NutritionResult, Ingredient } from './services/gemini';
 import { cn } from './lib/utils';
@@ -519,14 +519,14 @@ export default function App() {
             >
               <Edit2 className="w-5 h-5" />
             </button>
-            <Show when="signed-in">
+            <SignedIn>
               <UserButton />
-            </Show>
+            </SignedIn>
           </div>
         </div>
       </header>
 
-      <Show when="signed-out">
+      <SignedOut>
         <main className="max-w-md mx-auto px-6 pt-12 text-center space-y-6">
           <div className="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
             <PieChart className="w-12 h-12" />
@@ -541,9 +541,9 @@ export default function App() {
             </SignInButton>
           </div>
         </main>
-      </Show>
+      </SignedOut>
 
-      <Show when="signed-in">
+      <SignedIn>
         <main className="max-w-md mx-auto px-6 pt-6 space-y-8">
         {view === 'profile' ? (
           <motion.section 
@@ -1069,7 +1069,7 @@ export default function App() {
           </>
         )}
       </main>
-      </Show>
+      </SignedIn>
     </div>
   );
 }
