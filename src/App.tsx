@@ -93,7 +93,11 @@ function getAnalysisErrorText(err: unknown): string {
   }
 
   if (isConfigError(err)) {
-    return 'Falta configurar VITE_GEMINI_API_KEY en el entorno local.';
+    const errorMsg = getErrorMessage(err);
+    if (errorMsg.includes('server')) {
+      return 'Falta añadir GEMINI_API_KEY en las variables de entorno de Vercel (recuerda hacer Redeploy después).';
+    }
+    return 'Falta configurar VITE_GEMINI_API_KEY (cliente) o GEMINI_API_KEY (servidor).';
   }
 
   if (isAuthError(err)) {
@@ -109,7 +113,11 @@ function getIngredientErrorText(err: unknown, mode: 'add' | 'edit'): string {
   }
 
   if (isConfigError(err)) {
-    return 'Falta configurar VITE_GEMINI_API_KEY en el entorno local.';
+    const errorMsg = getErrorMessage(err);
+    if (errorMsg.includes('server')) {
+      return 'Falta añadir GEMINI_API_KEY en las variables de entorno de Vercel (y hacer Redeploy).';
+    }
+    return 'Falta configurar VITE_GEMINI_API_KEY o GEMINI_API_KEY.';
   }
 
   if (isAuthError(err)) {
