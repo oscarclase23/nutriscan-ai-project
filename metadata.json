@@ -1,0 +1,12 @@
+{
+  "name": "NutriScan AI",
+  "description": "AI-powered food recognition and nutrition assistant. Track your macros and calories by simply taking a photo.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "image_understanding",
+    "data_persistence",
+    "authentication"
+  ]
+}
