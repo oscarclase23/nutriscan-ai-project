@@ -5,6 +5,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Camera, Upload, Loader2, ChevronRight, PieChart, Info, AlertCircle, RefreshCcw, Save, Trash2, Plus, Edit2, Check, X } from 'lucide-react';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { analyzeFoodImage, getNutritionData, NutritionResult, Ingredient } from './services/gemini';
 import { cn } from './lib/utils';
@@ -518,11 +519,32 @@ export default function App() {
             >
               <Edit2 className="w-5 h-5" />
             </button>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </div>
       </header>
 
-      <main className="max-w-md mx-auto px-6 pt-6 space-y-8">
+      <SignedOut>
+        <main className="max-w-md mx-auto px-6 pt-12 text-center space-y-6">
+          <div className="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <PieChart className="w-12 h-12" />
+          </div>
+          <h2 className="text-3xl font-black text-gray-900">Bienvenido a NutriScan AI</h2>
+          <p className="text-gray-500 text-sm">Inicia sesión o regístrate en segundos para crear tu perfil personalizado, guardar tus comidas en la nube y analizar alimentos con IA avanzada.</p>
+          <div className="pt-8">
+            <SignInButton mode="modal">
+              <button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-emerald-200 transition-all active:scale-[0.98]">
+                Iniciar Sesión / Registro
+              </button>
+            </SignInButton>
+          </div>
+        </main>
+      </SignedOut>
+
+      <SignedIn>
+        <main className="max-w-md mx-auto px-6 pt-6 space-y-8">
         {view === 'profile' ? (
           <motion.section 
             initial={{ opacity: 0, x: 20 }}
@@ -1047,6 +1069,7 @@ export default function App() {
           </>
         )}
       </main>
+      </SignedIn>
     </div>
   );
 }
